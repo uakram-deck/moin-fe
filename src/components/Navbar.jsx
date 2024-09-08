@@ -15,7 +15,7 @@ import {
   IconUsersGroup,
 } from "@tabler/icons-react";
 import { clsx } from "clsx";
-import Logo from "../assets/logo.svg";
+import Logo from "../assets/logo.png";
 import AvatarImg from "../assets/avatar.png";
 import { iconStroke } from "../config/config";
 import { getUserDetailsInLocalStorage } from "../helpers/UserDetails";
@@ -46,39 +46,39 @@ export default function Navbar() {
       path: "/dashboard/pos",
       scopes: [SCOPES.POS]
     },
-    {
-      type: "link",
-      text: "Orders",
-      icon: <IconToolsKitchen3 stroke={iconStroke} />,
-      path: "/dashboard/orders",
-      scopes: [SCOPES.POS, SCOPES.ORDERS, SCOPES.ORDER_STATUS, SCOPES.ORDER_STATUS_DISPLAY]
-    },
-    {
-      type: "link",
-      text: "Kitchen",
-      icon: <IconChefHat stroke={iconStroke} />,
-      path: "/dashboard/kitchen",
-      scopes: [SCOPES.KITCHEN, SCOPES.KITCHEN_DISPLAY]
-    },
+    // {
+    //   type: "link",
+    //   text: "Orders",
+    //   icon: <IconToolsKitchen3 stroke={iconStroke} />,
+    //   path: "/dashboard/orders",
+    //   scopes: [SCOPES.POS, SCOPES.ORDERS, SCOPES.ORDER_STATUS, SCOPES.ORDER_STATUS_DISPLAY]
+    // },
+    // {
+    //   type: "link",
+    //   text: "Kitchen",
+    //   icon: <IconChefHat stroke={iconStroke} />,
+    //   path: "/dashboard/kitchen",
+    //   scopes: [SCOPES.KITCHEN, SCOPES.KITCHEN_DISPLAY]
+    // },
 
-    {
-      type: "text",
-      text: "Offerings",
-    },
-    {
-      type: "link",
-      text: "Reservation",
-      icon: <IconArmchair2 stroke={iconStroke} />,
-      path: "/dashboard/reservation",
-      scopes: [SCOPES.RESERVATIONS, SCOPES.VIEW_RESERVATIONS, SCOPES.MANAGE_RESERVATIONS]
-    },
-    {
-      type: "link",
-      text: "Customers",
-      icon: <IconFriends stroke={iconStroke} />,
-      path: "/dashboard/customers",
-      scopes: [SCOPES.CUSTOMERS, SCOPES.VIEW_CUSTOMERS, SCOPES.MANAGE_CUSTOMERS]
-    },
+    // {
+    //   type: "text",
+    //   text: "Offerings",
+    // },
+    // {
+    //   type: "link",
+    //   text: "Reservation",
+    //   icon: <IconArmchair2 stroke={iconStroke} />,
+    //   path: "/dashboard/reservation",
+    //   scopes: [SCOPES.RESERVATIONS, SCOPES.VIEW_RESERVATIONS, SCOPES.MANAGE_RESERVATIONS]
+    // },
+    // {
+    //   type: "link",
+    //   text: "Customers",
+    //   icon: <IconFriends stroke={iconStroke} />,
+    //   path: "/dashboard/customers",
+    //   scopes: [SCOPES.CUSTOMERS, SCOPES.VIEW_CUSTOMERS, SCOPES.MANAGE_CUSTOMERS]
+    // },
     {
       type: "link",
       text: "Invoices",
@@ -87,24 +87,24 @@ export default function Navbar() {
       scopes: [SCOPES.INVOICES]
     },
 
-    {
-      type: "text",
-      text: "Back Office",
-    },
-    {
-      type: "link",
-      text: "Users",
-      icon: <IconUsersGroup stroke={iconStroke} />,
-      path: "/dashboard/users",
-      scopes: []
-    },
-    {
-      type: "link",
-      text: "Reports",
-      icon: <IconChartArea stroke={iconStroke} />,
-      path: "/dashboard/reports",
-      scopes: [SCOPES.REPORTS]
-    },
+    // {
+    //   type: "text",
+    //   text: "Back Office",
+    // },
+    // {
+    //   type: "link",
+    //   text: "Users",
+    //   icon: <IconUsersGroup stroke={iconStroke} />,
+    //   path: "/dashboard/users",
+    //   scopes: []
+    // },
+    // {
+    //   type: "link",
+    //   text: "Reports",
+    //   icon: <IconChartArea stroke={iconStroke} />,
+    //   path: "/dashboard/reports",
+    //   scopes: [SCOPES.REPORTS]
+    // },
     {
       type: "link",
       text: "Settings",

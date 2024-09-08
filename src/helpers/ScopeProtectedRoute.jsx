@@ -18,9 +18,9 @@ const ScopeProtectedRoute = ({ children, scopes }) => {
   // check scopes
   const hasAccess = scopes?.some((scope)=>userScopes?.includes(scope));
 
-  if(hasAccess) {
+  // if(hasAccess) {
     return children;
-  }
+  // }
 
   return <Navigate to="/no-access" replace />;
 };

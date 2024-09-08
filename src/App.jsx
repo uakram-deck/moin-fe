@@ -72,8 +72,6 @@ export default function App() {
                   </ScopeProtectedRoute>
                 }
               />
-              <Route path="profile" element={<ProfilePage />} />
-
               <Route
                 path="pos"
                 element={
@@ -82,6 +80,9 @@ export default function App() {
                   </ScopeProtectedRoute>
                 }
               />
+
+              <Route path="profile" element={<ProfilePage />} />
+
               <Route
                 path="orders"
                 element={

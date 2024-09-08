@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Logo from "../assets/logo.svg";
+import Logo from "../assets/logo.png";
 import { toast } from "react-hot-toast";
 import { signIn } from "../controllers/auth.controller";
 import { useNavigate } from "react-router-dom";
@@ -107,15 +107,11 @@ export default function LoginPage() {
     <div className="bg-restro-green-dark flex items-center justify-center w-full h-screen">
       <div className="bg-restro-green-light rounded-2xl px-8 py-8 w-full sm:w-96 mx-8 sm:mx-0">
         <div className="flex items-center justify-center">
-          {/* <div className="text-restro-green-dark text-xl font-medium">
-            Login
-          </div> */}
           <div>
-            <h1 className="text-5xl text-white italic font-semibold">Hangout</h1>
+            <h3 className="text-2xl text-white font-semibold">
+              Log In with Hangout
+            </h3>
           </div>
-          {/* <div>
-            <img src={Logo} className="h-16" />
-          </div> */}
         </div>
 
         <form className="mt-6" onSubmit={handleSubmit}>

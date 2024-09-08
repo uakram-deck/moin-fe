@@ -1,6 +1,6 @@
 import React from 'react'
 import Page from "../components/Page"
-import Logo from "../assets/logo.svg";
+import Logo from "../assets/logo.png";
 import { IconChevronLeft } from '@tabler/icons-react';
 import { iconStroke } from '../config/config';
 import { useNavigate } from 'react-router-dom';

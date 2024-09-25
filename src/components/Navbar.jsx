@@ -91,13 +91,13 @@ export default function Navbar() {
     //   type: "text",
     //   text: "Back Office",
     // },
-    // {
-    //   type: "link",
-    //   text: "Users",
-    //   icon: <IconUsersGroup stroke={iconStroke} />,
-    //   path: "/dashboard/users",
-    //   scopes: []
-    // },
+    {
+      type: "link",
+      text: "Users",
+      icon: <IconUsersGroup stroke={iconStroke} />,
+      path: "/dashboard/users",
+      scopes: []
+    },
     // {
     //   type: "link",
     //   text: "Reports",
@@ -105,13 +105,13 @@ export default function Navbar() {
     //   path: "/dashboard/reports",
     //   scopes: [SCOPES.REPORTS]
     // },
-    {
-      type: "link",
-      text: "Settings",
-      icon: <IconSettings2 stroke={iconStroke} />,
-      path: "/dashboard/settings",
-      scopes: [SCOPES.SETTINGS]
-    },
+    // {
+    //   type: "link",
+    //   text: "Settings",
+    //   icon: <IconSettings2 stroke={iconStroke} />,
+    //   path: "/dashboard/settings",
+    //   scopes: [SCOPES.SETTINGS]
+    // },
   ];
 
   const btnToggleNavbar = () => {

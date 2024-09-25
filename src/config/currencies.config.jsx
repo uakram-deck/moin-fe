@@ -1,4 +1,5 @@
 export const CURRENCIES = [
+  {"cc":"AED","symbol":"PKR ","name":"PKR "},
     {"cc":"AED","symbol":"\u062f.\u0625;","name":"UAE dirham"},
     {"cc":"AFN","symbol":"Afs","name":"Afghan afghani"},
     {"cc":"ALL","symbol":"L","name":"Albanian lek"},

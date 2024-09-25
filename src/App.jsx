@@ -46,7 +46,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/print-receipt" element={<PrintReceiptPage />} />
-            <Route path="/print-token" element={<PrintTokenPage />} />
+            {/* <Route path="/print-token" element={<PrintTokenPage />} /> */}
             <Route path="/no-access" element={<NoAccessPage />} />
             <Route
               path="/dashboard"
@@ -83,7 +83,7 @@ export default function App() {
 
               <Route path="profile" element={<ProfilePage />} />
 
-              <Route
+              {/* <Route
                 path="orders"
                 element={
                   <ScopeProtectedRoute
@@ -135,7 +135,7 @@ export default function App() {
                     <CustomersPage />
                   </ScopeProtectedRoute>
                 }
-              />
+              /> */}
               <Route
                 path="invoices"
                 element={
@@ -152,19 +152,19 @@ export default function App() {
                   </ScopeProtectedRoute>
                 }
               />
-              <Route
+              {/* <Route
                 path="reports"
                 element={
                   <ScopeProtectedRoute scopes={[SCOPES.REPORTS]}>
                     <ReportsPage />
                   </ScopeProtectedRoute>
                 }
-              />
+              /> */}
 
-              <Route path="devices" element={<DevicesPage />} />
-              <Route path="contact-support" element={<ContactSupport />} />
+              {/* <Route path="devices" element={<DevicesPage />} /> */}
+              {/* <Route path="contact-support" element={<ContactSupport />} /> */}
 
-              <Route
+              {/* <Route
                 path="settings"
                 element={
                   <ScopeProtectedRoute scopes={[SCOPES.SETTINGS]}>
@@ -184,7 +184,7 @@ export default function App() {
                 />
                 <Route path="tax-setup" element={<TaxSetupPage />} />
                 <Route path="payment-types" element={<PaymentTypesPage />} />
-              </Route>
+              </Route> */}
             </Route>
           </Routes>
           <Toaster />

@@ -11,7 +11,7 @@ export async function signIn(username, password) {
     });
     // document.cookie = `accessToken=${response?.data?.accessToken}`;
     // document.cookie = `refreshToken=${response?.data?.accessToken}`;
-    document.cookie = `restro__authenticated=${true}`;
+    // document.cookie = `restro__authenticated=${true}`;
     localStorage.setItem("accessToken", response?.data?.accessToken);
     
     return response;

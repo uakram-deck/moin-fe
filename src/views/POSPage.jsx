@@ -126,294 +126,8 @@ export default function POSPage() {
     try {
       const res = await initPOS();
 
-      console.log("ssssss", res);
-
       if (res.status == 200) {
-        const data = {
-          categories: [
-            {
-              id: 10,
-              title: "Fastfood",
-            },
-            {
-              id: 11,
-              title: "Breakfast",
-            },
-            {
-              id: 12,
-              title: "Beverages ",
-            },
-            {
-              id: 13,
-              title: "Dinner",
-            },
-            {
-              id: 14,
-              title: "Lunch",
-            },
-            {
-              id: 16,
-              title: "Drinks",
-            },
-          ],
-          paymentTypes: [
-            {
-              id: 1,
-              title: "Cash",
-              is_active: 1,
-            },
-            {
-              id: 2,
-              title: "Credit / Debit Card",
-              is_active: 1,
-            },
-            {
-              id: 7,
-              title: "UPI",
-              is_active: 1,
-            },
-          ],
-          printSettings: {
-            id: 1,
-            page_format: "80",
-            header: "Star A Hotels\n7, Times Square, NY.",
-            footer: "Thanks for Ordering!\nVisit Again!",
-            show_notes: 1,
-            is_enable_print: 1,
-            show_store_details: 1,
-            show_customer_details: 1,
-            print_token: 1,
-          },
-          storeSettings: {
-            id: 1,
-            store_name: "Star A1 Hotels",
-            address: "Times Square, NY",
-            phone: "9876543210",
-            email: "a1restro@mail.com",
-            currency: "USD",
-            image: null,
-          },
-          storeTables: [
-            {
-              id: 1,
-              table_title: "Table 1",
-              floor: "1st Floor",
-              seating_capacity: 4,
-            },
-            {
-              id: 2,
-              table_title: "Table 2",
-              floor: "1st Floor",
-              seating_capacity: 2,
-            },
-            {
-              id: 3,
-              table_title: "Table 3",
-              floor: "1st Floor",
-              seating_capacity: 4,
-            },
-            {
-              id: 4,
-              table_title: "Table 4",
-              floor: "1st Floor",
-              seating_capacity: 4,
-            },
-            {
-              id: 5,
-              table_title: "Table 5",
-              floor: "1st Floor",
-              seating_capacity: 2,
-            },
-            {
-              id: 6,
-              table_title: "Table 6",
-              floor: "1st Floor",
-              seating_capacity: 4,
-            },
-            {
-              id: 11,
-              table_title: "Special Twin Table",
-              floor: "-",
-              seating_capacity: 0,
-            },
-            {
-              id: 12,
-              table_title: "Twin Star",
-              floor: "3rd Floor",
-              seating_capacity: 12,
-            },
-            {
-              id: 13,
-              table_title: "Table 1",
-              floor: "3rd Floor",
-              seating_capacity: 8,
-            },
-            {
-              id: 14,
-              table_title: "Banquet",
-              floor: "4th Floor",
-              seating_capacity: 25,
-            },
-          ],
-          menuItems: [
-            {
-              id: 22,
-              title: "Cold Coffee",
-              price: "100.00",
-              net_price: "80.00",
-              tax_id: 2,
-              tax_title: "GST 5",
-              tax_rate: 5,
-              tax_type: "inclusive",
-              category_id: 12,
-              category_title: "Beverages ",
-              image: null,
-              addons: [],
-              variants: [],
-            },
-            {
-              id: 15,
-              title: "Sandwich",
-              price: "5.00",
-              net_price: null,
-              tax_id: null,
-              tax_title: null,
-              tax_rate: null,
-              tax_type: null,
-              category_id: 10,
-              category_title: "Fastfood",
-              image: null,
-              addons: [
-                {
-                  id: 7,
-                  item_id: 15,
-                  title: "Extra Cheese",
-                  price: "1.00",
-                },
-                {
-                  id: 8,
-                  item_id: 15,
-                  title: "Extra Ketchup",
-                  price: "1.00",
-                },
-              ],
-              variants: [
-                {
-                  id: 11,
-                  item_id: 15,
-                  title: "Small",
-                  price: "3.00",
-                },
-                {
-                  id: 12,
-                  item_id: 15,
-                  title: "Medium",
-                  price: "5.00",
-                },
-                {
-                  id: 13,
-                  item_id: 15,
-                  title: "Large",
-                  price: "8.00",
-                },
-              ],
-            },
-            {
-              id: 16,
-              title: "Burger",
-              price: "5.00",
-              net_price: null,
-              tax_id: null,
-              tax_title: null,
-              tax_rate: null,
-              tax_type: null,
-              category_id: 10,
-              category_title: "Fastfood",
-              image: null,
-              addons: [],
-              variants: [],
-            },
-            {
-              id: 17,
-              title: "Tomato Soup",
-              price: "2.00",
-              net_price: null,
-              tax_id: null,
-              tax_title: null,
-              tax_rate: null,
-              tax_type: null,
-              category_id: null,
-              category_title: null,
-              image: null,
-              addons: [],
-              variants: [],
-            },
-            {
-              id: 18,
-              title: "Noodles",
-              price: "3.00",
-              net_price: null,
-              tax_id: null,
-              tax_title: null,
-              tax_rate: null,
-              tax_type: null,
-              category_id: null,
-              category_title: null,
-              image: null,
-              addons: [],
-              variants: [],
-            },
-            {
-              id: 19,
-              title: "Pizza",
-              price: "2.00",
-              net_price: null,
-              tax_id: null,
-              tax_title: null,
-              tax_rate: null,
-              tax_type: null,
-              category_id: null,
-              category_title: null,
-              image: null,
-              addons: [],
-              variants: [
-                {
-                  id: 14,
-                  item_id: 19,
-                  title: "Small",
-                  price: "2.00",
-                },
-                {
-                  id: 15,
-                  item_id: 19,
-                  title: "Medium",
-                  price: "5.00",
-                },
-                {
-                  id: 16,
-                  item_id: 19,
-                  title: "Large",
-                  price: "10.00",
-                },
-              ],
-            },
-            {
-              id: 23,
-              title: "ALITAS 6",
-              price: "100.00",
-              net_price: "150.00",
-              tax_id: null,
-              tax_title: null,
-              tax_rate: null,
-              tax_type: null,
-              category_id: 10,
-              category_title: "Fastfood",
-              image: null,
-              addons: [],
-              variants: [],
-            },
-          ],
-        };
+        const data = { ...res?.data };
 
         const currency = CURRENCIES.find(
           (c) => c.cc == data?.storeSettings?.currency
@@ -779,18 +493,18 @@ export default function POSPage() {
   };
   const btnPayAndSendToKitchen = async () => {
     try {
-      const deliveryType = diningOptionRef.current.value;
-      const tableId = tableRef.current.value;
+      const deliveryType = ""; //diningOptionRef.current.value;
+      const tableId = "1";
       const customerType = state.customerType;
       const customer = state.customer;
 
       toast.loading("Please wait...");
       const res = await createOrderAndInvoice(
         cartItems,
-        deliveryType,
+        "",
         customerType,
         customer,
-        tableId,
+        "1",
         state.itemsTotal,
         state.taxTotal,
         state.payableTotal
@@ -870,19 +584,13 @@ export default function POSPage() {
 
   const btnSendToKitchen = async () => {
     try {
-      const deliveryType = diningOptionRef.current.value;
-      const tableId = tableRef.current.value;
+      const deliveryType = ""; //diningOptionRef.current.value;
+      // const tableId = tableRef.current.value;
       const customerType = state.customerType;
       const customer = state.customer;
 
       toast.loading("Please wait...");
-      const res = await createOrder(
-        cartItems,
-        deliveryType,
-        customerType,
-        customer,
-        tableId
-      );
+      const res = await createOrder(cartItems, "", customerType, customer, "1");
       toast.dismiss();
       if (res.status == 200) {
         const data = res.data;
@@ -959,8 +667,8 @@ export default function POSPage() {
   return (
     <Page className="px-4 py-3 flex flex-col min-h-0">
       <div className="flex md:items-center justify-between flex-col md:flex-row gap-2">
-        <h3>POS - Point of Sale</h3>
-        <div className="flex flex-wrap items-center gap-4">
+        <h2>POS - Point of Sale</h2>
+        {/* <div className="flex flex-wrap items-center gap-4">
           <button
             onClick={btnInitNewOrder}
             className="text-sm rounded-lg border bg-gray-50 hover:bg-gray-100 transition active:scale-95 hover:shadow-lg text-gray-500 px-2 py-1 flex items-center gap-1"
@@ -981,7 +689,7 @@ export default function POSPage() {
           >
             <IconArmchair size={18} stroke={iconStroke} /> Table Orders
           </Link>
-        </div>
+        </div> */}
       </div>
 
       <div className="mt-4 md:h-[calc(100vh-136px)] flex flex-col-reverse md:flex-row gap-4">
@@ -1019,7 +727,7 @@ export default function POSPage() {
           {/* categories, search */}
 
           {/* list */}
-          <div className="grid grid-cols-2 gap-4 w-full z-0 px-4 pb-4 rounded-b-2xl">
+          <div className="grid grid-cols-3 gap-4 w-full z-0 px-4 pb-4 rounded-b-2xl">
             {menuItems
               .filter((menuItem) => {
                 if (selectedCategory == "all") {
@@ -1053,45 +761,48 @@ export default function POSPage() {
 
                 return (
                   <div
-                    className="bg-white border border-grey rounded-2xl p-2 flex gap-2"
+                    className="bg-white border border-grey rounded-2xl p-2"
                     key={i}
                   >
-                    <div className="w-28 h-36 bg-gray-100 rounded-lg hidden md:flex items-center justify-center text-gray-300">
+                    {/* <div className="w-28 h-36 bg-gray-100 rounded-lg hidden md:flex items-center justify-center text-gray-300">
                       <IconPhoto />
-                      {/* <IconCarrot /> */}
-                    </div>
-                    <div>
-                      <p>{title}</p>
-                      <p>
-                        {currency}
-                        {price}
-                      </p>
+                      <IconCarrot />
+                    </div> */}
+                    <div className="flex justify-between">
+                      <div>
+                        <p>{title}</p>
+                        <p>
+                          {currency}
+                          {price}
+                        </p>
+                        <div className="mt-2">
+                          <button
+                            onClick={() => {
+                              if (hasVariantOrAddon) {
+                                btnOpenVariantAndAddonModal(id);
+                              } else {
+                                addItemToCart(menuItem);
+                              }
+                            }}
+                            className="rounded-full px-4 py-1 bg-restro-green hover:bg-restro-green-light transition active:scale-95 text-white flex items-center justify-center"
+                          >
+                            Add
+                          </button>
+                        </div>
+                      </div>
 
-                      <p className="mt-2 text-xs text-gray-500">
-                        {category_title}
-                      </p>
-                      <p className="mt-1 text-xs text-gray-500">
-                        {variants?.length > 0 && (
-                          <span>{variants?.length} Variants</span>
-                        )}{" "}
-                        {addons?.length > 0 && (
-                          <span>{addons?.length} Addons</span>
-                        )}
-                      </p>
-
-                      <div className="mt-2">
-                        <button
-                          onClick={() => {
-                            if (hasVariantOrAddon) {
-                              btnOpenVariantAndAddonModal(id);
-                            } else {
-                              addItemToCart(menuItem);
-                            }
-                          }}
-                          className="rounded-full px-4 py-1 bg-restro-green hover:bg-restro-green-light transition active:scale-95 text-white flex items-center justify-center"
-                        >
-                          Add
-                        </button>
+                      <div>
+                        <p className="mt-2 text-xs text-gray-500">
+                          {category_title}
+                        </p>
+                        <p className="mt-1 text-xs text-gray-500">
+                          {variants?.length > 0 && (
+                            <span>{variants?.length} Variants</span>
+                          )}{" "}
+                          {addons?.length > 0 && (
+                            <span>{addons?.length} Addons</span>
+                          )}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -1103,10 +814,10 @@ export default function POSPage() {
         {/* pos items */}
 
         {/* cart */}
-        <div className="border border-grey rounded-2xl h-full md:w-[30%] relative flex flex-col">
-          <div className="sticky w-full px-4 py-4 bg-gradient-to-b from-white to-white/0 border-b rounded-t-2xl">
-            {/* search customer */}
-            <div
+        <div className="border border-grey rounded-2xl h-full md:w-[30%] relative flex flex-col px-3">
+          {/* <div className="sticky w-full px-4 py-4 bg-gradient-to-b from-white to-white/0 border-b rounded-t-2xl"> */}
+          {/* search customer */}
+          {/* <div
               onClick={btnOpenSearchCustomerModal}
               className="flex items-center gap-2"
             >
@@ -1126,23 +837,30 @@ export default function POSPage() {
               >
                 <IconSearch size={18} stroke={iconStroke} />
               </button>
-            </div>
-            {/* search customer */}
+            </div> */}
+          {/* search customer */}
 
-            {/* delivery type */}
-            <select
-              ref={diningOptionRef}
-              className="mt-3 text-sm text-gray-500 w-full border rounded-lg px-4 py-2 bg-gray-50 outline-restro-border-green-light"
-            >
-              <option value="">Select Dining Option</option>
-              <option value="dinein">Dine-In</option>
-              <option value="delivery">Delivery</option>
-              <option value="takeaway">Take Away</option>
-            </select>
-            {/* delivery type */}
+          {/* delivery type */}
+          <select
+            // ref={diningOptionRef}
+            className="mt-3 text-sm text-gray-500 w-full border rounded-lg px-4 py-2 bg-gray-50 outline-restro-border-green-light"
+            onChange={(e) => {
+              setState({
+                ...state,
+                customerType: e.target.value,
+              });
+            }}
+            value={state.customerType}
+          >
+            <option value="WALKIN">WALKIN</option>
+            <option value="CUSTOMER">CUSTOMER</option>
+            {/* <option value="delivery">Delivery</option>
+              <option value="takeaway">Take Away</option> */}
+          </select>
+          {/* delivery type*}
 
-            {/* table selection */}
-            <select
+          {/* table selection */}
+          {/* <select
               ref={tableRef}
               className="mt-3 text-sm text-gray-500 w-full border rounded-lg px-4 py-2 bg-gray-50 outline-restro-border-green-light"
             >
@@ -1155,9 +873,9 @@ export default function POSPage() {
                   </option>
                 );
               })}
-            </select>
-            {/* table selection */}
-          </div>
+            </select> */}
+          {/* table selection */}
+          {/* </div> */}
 
           {/* items */}
           <div className="flex-1 flex flex-col gap-4 overflow-y-auto px-4 pb-36">
@@ -1221,7 +939,7 @@ export default function POSPage() {
                         <IconPlus stroke={iconStroke} size={18} />
                       </button>
                     </div>
-                    <div>
+                    {/* <div>
                       <button
                         onClick={() => {
                           btnOpenNotesModal(i, notes);
@@ -1233,7 +951,7 @@ export default function POSPage() {
                         </div>{" "}
                         <p>Notes</p>
                       </button>
-                    </div>
+                    </div> */}
                   </div>
 
                   {/* action btn delete */}
@@ -1254,7 +972,7 @@ export default function POSPage() {
 
           {/* actions */}
           <div className="absolute w-full bottom-0 pb-4 rounded-b-2xl px-4 bg-white/20 backdrop-blur border-t">
-            <div className="flex items-center flex-col lg:flex-row gap-2 mt-4">
+            {/* <div className="flex items-center flex-col lg:flex-row gap-2 mt-4">
               <button
                 onClick={btnOpenSaveDraftModal}
                 className="text-sm rounded-lg border bg-gray-50 hover:bg-gray-100 transition active:scale-95 hover:shadow-lg text-gray-500 px-2 py-1 flex-1 lg:flex-none flex items-center gap-1"
@@ -1271,7 +989,7 @@ export default function POSPage() {
                 </div>{" "}
                 <p>Send to Kitchen</p>
               </button>
-            </div>
+            </div> */}
             <div className="mt-2">
               <button
                 onClick={btnShowPayAndSendToKitchenModal}
@@ -1696,9 +1414,7 @@ export default function POSPage() {
         className="modal modal-bottom sm:modal-middle"
       >
         <div className="modal-box">
-          <h3 className="font-bold text-lg">
-            Collect Payment & Send order to Kitchen
-          </h3>
+          <h3 className="font-bold text-lg">Collect Payment</h3>
 
           <div className="my-4 flex items-center divide-x w-full">
             <div className="flex-1">
@@ -1736,7 +1452,7 @@ export default function POSPage() {
                 }}
                 className="rounded-lg hover:bg-restro-green text-white transition active:scale-95 hover:shadow-lg px-4 py-3 ml-3 bg-restro-green-light"
               >
-                Collect Payment & Send to Kitchen
+                Collect Payment
               </button>
             </form>
           </div>

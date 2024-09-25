@@ -31,11 +31,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        'restro-green-light': "#f9923d", // "#ECF1EB", // side-bar, main
+        'restro-green-light': "#2d2d2d", // "#ECF1EB", // side-bar, main
         'restro-green': "#F58021", //"#70B56A", // button
         'restro-green-dark': "#ffffff", // "#243922", // side-bar, tabs font-color
         'restro-border-green-light': "#fd7404", //"#DCE7DB" // active buttons, border color
-        'restro-border-green': "#f9923d", //"#DCE7DB" // active buttons, border color
+        'restro-border-green': "#2d2d2d", //"#DCE7DB" // active buttons, border color
       }
     },
   },

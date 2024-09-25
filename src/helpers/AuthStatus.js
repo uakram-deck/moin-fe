@@ -1,4 +1,4 @@
 export function isRestroUserAuthenticated() {
-    const restroAuthenticated = document.cookie.includes("restro__authenticated=");
+    const restroAuthenticated = localStorage.getItem("restro__user") !== null;
     return restroAuthenticated;
 }

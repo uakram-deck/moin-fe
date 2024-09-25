@@ -13,13 +13,17 @@ import {
 import { iconStroke } from "../config/config";
 import { toast } from "react-hot-toast";
 import { mutate } from "swr";
-import { getInvoiceOrders, getInvoicesInit, searchInvoices, useInvoices } from "../controllers/invoices.controller";
+import {
+  getInvoiceOrders,
+  getInvoicesInit,
+  searchInvoices,
+  useInvoices,
+} from "../controllers/invoices.controller";
 import { getOrdersInit } from "../controllers/orders.controller";
 import { CURRENCIES } from "../config/currencies.config";
-import { setDetailsForReceiptPrint } from '../helpers/ReceiptHelper';
+import { setDetailsForReceiptPrint } from "../helpers/ReceiptHelper";
 
 export default function InvoicesPage() {
-
   const filters = [
     { key: "today", value: "Today" },
     { key: "tomorrow", value: "Tomorrow" },
@@ -56,17 +60,19 @@ export default function InvoicesPage() {
 
     printSettings: null,
     storeSettings: null,
-    currency: null
+    currency: null,
   });
 
-  useEffect(()=>{
-    async function init(){
+  useEffect(() => {
+    async function init() {
       try {
         const res = await getInvoicesInit();
-        if(res.status == 200) {
+        if (res.status == 200) {
           const ordersInit = res.data;
-          const currency = CURRENCIES.find((c)=>c.cc==ordersInit?.storeSettings?.currency);
-  
+          const currency = CURRENCIES.find(
+            (c) => c.cc == ordersInit?.storeSettings?.currency
+          );
+
           setState({
             ...state,
             printSettings: ordersInit.printSettings,
@@ -81,9 +87,13 @@ export default function InvoicesPage() {
       }
     }
     init();
-  },[]);
+  }, []);
 
-  const {data: invoices, error, isLoading} = useInvoices({
+  const {
+    data: invoices,
+    error,
+    isLoading,
+  } = useInvoices({
     type: state.filter,
     from: state.fromDate,
     to: state.toDate,
@@ -106,27 +116,27 @@ export default function InvoicesPage() {
     try {
       toast.loading("Please wait...");
       const res = await searchInvoices(new String(searchQuery).trim());
-      if(res.status == 200) {
+      if (res.status == 200) {
         toast.dismiss();
         setState({
           ...state,
           search: searchQuery,
           searchResults: res.data,
           spage: 1,
-        }); 
+        });
       } else {
         toast.dismiss();
         toast.error("No result found!");
       }
-      
     } catch (error) {
       console.error(error);
-      const message = error.response.data.message || "Something went wrong! Try later!";
+      const message =
+        error.response.data.message || "Something went wrong! Try later!";
 
       toast.dismiss();
       toast.error(message);
     }
-  }
+  };
   const btnClearSearch = () => {
     searchRef.current.value = null;
 
@@ -141,54 +151,71 @@ export default function InvoicesPage() {
   const btnViewReceipt = async (orderIdsArr) => {
     try {
       toast.loading("Please wait...");
-      const res = await getInvoiceOrders(orderIdsArr); 
+      const res = await getInvoiceOrders(orderIdsArr);
       toast.dismiss();
 
-      if(res.status == 200) {
+      if (res.status == 200) {
         console.log(res.data);
         console.log(orderIdsArr);
-        const {
-          subtotal, 
-          taxTotal, 
-          total,
-          orders: ordersArr
-        } = res.data;
+        const { subtotal, taxTotal, total, orders: ordersArr } = res.data;
 
         const orders = [];
         const orderIds = orderIdsArr.join(", ");
 
         for (const o of ordersArr) {
           const items = o.items;
-          items.forEach((i)=>{
-            const variant = i.variant_id ? {
-                id: i.variant_id,
-                title: i.variant_title,
-                price: i.variant_price
-            } : null;
+          items.forEach((i) => {
+            const variant = i.variant_id
+              ? {
+                  id: i.variant_id,
+                  title: i.variant_title,
+                  price: i.variant_price,
+                }
+              : null;
             orders.push({
               ...i,
               title: i.item_title,
-              addons_ids: i?.addons?.length > 0 ? i?.addons?.map((a)=>a.id):[],
-              variant: variant
+              addons_ids:
+                i?.addons?.length > 0 ? i?.addons?.map((a) => a.id) : [],
+              variant: variant,
             });
-          })
+          });
         }
 
-        const {customer_id, customer_type, customer_name, date, delivery_type} = ordersArr;
+        const {
+          customer_id,
+          customer_type,
+          customer_name,
+          date,
+          delivery_type,
+        } = ordersArr;
 
         setDetailsForReceiptPrint({
-          cartItems: orders, deliveryType:delivery_type, customerType:customer_type, customer:{id: customer_id, name: customer_name}, tableId: null, currency:state.currency, storeSettings: state.storeSettings, printSettings:state.printSettings,
+          cartItems: orders,
+          deliveryType: delivery_type,
+          customerType: customer_type,
+          customer: { id: customer_id, name: customer_name },
+          tableId: null,
+          currency: state.currency,
+          storeSettings: state.storeSettings,
+          printSettings: state.printSettings,
           itemsTotal: subtotal,
           taxTotal: taxTotal,
-          payableTotal: total, 
+          payableTotal: total,
           tokenNo: null,
-          orderId: orderIds
+          orderId: orderIds,
         });
 
-        const receiptWindow = window.open("/print-receipt", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+        const receiptWindow = window.open(
+          "/print-receipt",
+          "_blank",
+          "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400"
+        );
       }
     } catch (error) {
-      const message = error?.response?.data?.message || "Error processing your request, Please try later!";
+      const message =
+        error?.response?.data?.message ||
+        "Error processing your request, Please try later!";
       toast.dismiss();
       console.error(error);
       toast.error(message);
@@ -198,60 +225,76 @@ export default function InvoicesPage() {
   const btnPrintReceipt = async (orderIdsArr) => {
     try {
       toast.loading("Please wait...");
-      const res = await getInvoiceOrders(orderIdsArr); 
+      const res = await getInvoiceOrders(orderIdsArr);
       toast.dismiss();
 
-      if(res.status == 200) {
+      if (res.status == 200) {
         console.log(res.data);
         console.log(orderIdsArr);
-        const {
-          subtotal, 
-          taxTotal, 
-          total,
-          orders: ordersArr
-        } = res.data;
+        const { subtotal, taxTotal, total, orders: ordersArr } = res.data;
 
         const orders = [];
         const orderIds = orderIdsArr.join(", ");
 
         for (const o of ordersArr) {
           const items = o.items;
-          items.forEach((i)=>{
-            const variant = i.variant_id ? {
-                id: i.variant_id,
-                title: i.variant_title,
-                price: i.variant_price
-            } : null;
+          items.forEach((i) => {
+            const variant = i.variant_id
+              ? {
+                  id: i.variant_id,
+                  title: i.variant_title,
+                  price: i.variant_price,
+                }
+              : null;
             orders.push({
               ...i,
               title: i.item_title,
-              addons_ids: i?.addons?.length > 0 ? i?.addons?.map((a)=>a.id):[],
-              variant: variant
+              addons_ids:
+                i?.addons?.length > 0 ? i?.addons?.map((a) => a.id) : [],
+              variant: variant,
             });
-          })
+          });
         }
 
-        const {customer_id, customer_type, customer_name, date, delivery_type} = ordersArr;
+        const {
+          customer_id,
+          customer_type,
+          customer_name,
+          date,
+          delivery_type,
+        } = ordersArr;
 
         setDetailsForReceiptPrint({
-          cartItems: orders, deliveryType:delivery_type, customerType:customer_type, customer:{id: customer_id, name: customer_name}, tableId: null, currency:state.currency, storeSettings: state.storeSettings, printSettings:state.printSettings,
+          cartItems: orders,
+          deliveryType: delivery_type,
+          customerType: customer_type,
+          customer: { id: customer_id, name: customer_name },
+          tableId: null,
+          currency: state.currency,
+          storeSettings: state.storeSettings,
+          printSettings: state.printSettings,
           itemsTotal: subtotal,
           taxTotal: taxTotal,
-          payableTotal: total, 
+          payableTotal: total,
           tokenNo: null,
-          orderId: orderIds
+          orderId: orderIds,
         });
 
-        const receiptWindow = window.open("/print-receipt", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+        const receiptWindow = window.open(
+          "/print-receipt",
+          "_blank",
+          "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400"
+        );
         receiptWindow.onload = (e) => {
-          setTimeout(()=>{
+          setTimeout(() => {
             receiptWindow.print();
-          },400)
-        }
-        
+          }, 400);
+        };
       }
     } catch (error) {
-      const message = error?.response?.data?.message || "Error processing your request, Please try later!";
+      const message =
+        error?.response?.data?.message ||
+        "Error processing your request, Please try later!";
       toast.dismiss();
       console.error(error);
       toast.error(message);
@@ -294,101 +337,130 @@ export default function InvoicesPage() {
       </div>
 
       {/* search result */}
-      {state.searchResults.length > 0 && <div className="mt-6">
-        <h3>Showing Search Result for "{state.search}"</h3>
-        <div className="overflow-x-auto w-full">
-          <table className="table table-sm table-zebra border w-full">
-            <thead>
-              <tr>
+      {state.searchResults.length > 0 && (
+        <div className="mt-6">
+          <h3>Showing Search Result for "{state.search}"</h3>
+          <div className="overflow-x-auto w-full">
+            <table className="table table-sm table-zebra border w-full">
+              <thead>
+                <tr>
                 <th>Invoice ID:</th>
-                <th>Order IDs</th>
+                {/* <th>Order IDs</th> */}
                 <th>Tokens</th>
                 <th>Date</th>
-                <th>Subtotal</th>
-                <th>Tax</th>
+                {/* <th>Subtotal</th> */}
+                {/* <th>Tax</th> */}
                 <th>Total</th>
-                <th>Delivery Type</th>
+                {/* <th>Delivery Type</th> */}
                 <th>Customer</th>
-                <th>Table</th>
+                {/* <th>Table</th> */}
                 <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {state.searchResults.map((invoice, index)=>{
-                const { 
-                  invoice_id,
-                  created_at,
-                  sub_total,
-                  tax_total,
-                  total,
-                  table_id,
-                  table_title,
-                  floor,
-                  delivery_type,
-                  customer_type,
-                  customer_id,
-                  name,
-                  email,
-                  orders,
-                } = invoice;
-
-                const orderIdsArr = orders.map(o=>o.order_id);
-                const orderIds = orderIdsArr.join(", ")
-                const tokens = orderIdsArr.join(", ");
-
-                return <tr key={index}>
-                  <td>{invoice_id}</td>
-                  <td>{orderIds}</td>
-                  <td>{tokens}</td>
-                  <td>{new Intl.DateTimeFormat('en', {dateStyle: "medium", timeStyle: "short"}).format(new Date(created_at))}</td>
-                  <td>{state.currency}{sub_total}</td>
-                  <td>{state.currency}{tax_total}</td>
-                  <td className="font-bold">{state.currency}{total}</td>
-                  <td>{delivery_type?delivery_type:"N/A"}</td>
-                  <td>{customer_id ?<b>{name}-({customer_id})</b>:"WALKIN"}</td>
-                  <td>{table_id ? <b>{table_title}-{floor}</b>:"N/A"}</td>
-                  
-                  <td className="flex items-center gap-2">
-                    <button onClick={()=>{btnViewReceipt(orderIdsArr)}} className="btn btn-sm btn-circle text-slate-500">
-                      <IconReceipt stroke={iconStroke} />
-                    </button>
-                    <button onClick={()=>{btnPrintReceipt(orderIdsArr)}} className="btn btn-sm btn-circle text-slate-500">
-                      <IconPrinter stroke={iconStroke} />
-                    </button>
-                  </td>
                 </tr>
-              })}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {state.searchResults.map((invoice, index) => {
+                  const {
+                    invoice_id,
+                    created_at,
+                    sub_total,
+                    tax_total,
+                    total,
+                    table_id,
+                    table_title,
+                    floor,
+                    delivery_type,
+                    customer_type,
+                    customer_id,
+                    name,
+                    email,
+                    orders,
+                  } = invoice;
+
+                  const orderIdsArr = orders.map((o) => o.order_id);
+                  const orderIds = orderIdsArr.join(", ");
+                  const tokens = orderIdsArr.join(", ");
+
+                  return (
+                    <tr key={index}>
+                    <td>{invoice_id}</td>
+                    {/* <td>{orderIds}</td> */}
+                    <td>{tokens}</td>
+                    <td>
+                      {new Intl.DateTimeFormat("en", {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                      }).format(new Date(created_at))}
+                    </td>
+                    {/* <td>{state.currency}{sub_total}</td> */}
+                    {/* <td>{state.currency}{tax_total}</td> */}
+                    <td className="font-bold">
+                      {state.currency}
+                      {total}
+                    </td>
+                    {/* <td>{delivery_type?delivery_type:"N/A"}</td> */}
+                    <td>
+                      {customer_id ? (
+                        <b>
+                          {name}-({customer_id})
+                        </b>
+                      ) : (
+                        "WALKIN"
+                      )}
+                    </td>
+                    {/* <td>{table_id ? <b>{table_title}-{floor}</b>:"N/A"}</td> */}
+
+                    <td className="flex items-center gap-2">
+                      {/* <button onClick={()=>{btnViewReceipt(orderIdsArr)}} className="btn btn-sm btn-circle text-slate-500">
+                      <IconReceipt stroke={iconStroke} />
+                    </button> */}
+                      <button
+                        onClick={() => {
+                          btnPrintReceipt(orderIdsArr);
+                        }}
+                        className="btn btn-sm btn-circle text-slate-500"
+                      >
+                        <IconPrinter stroke={iconStroke} />
+                      </button>
+                    </td>
+                  </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>}
+      )}
       {/* search result */}
 
       {/* data */}
-      <h3 className="mt-6 mb-4 text-base">Showing Invoices for {filters.find(f=>f.key==state.filter).value}</h3>
+      <h3 className="mt-6 mb-4 text-base">
+        Showing Invoices for {filters.find((f) => f.key == state.filter).value}
+      </h3>
       {invoices.length == 0 ? (
-        <div className="text-center w-full h-[50vh] flex items-center justify-center text-gray-500">No Results found! Change the Filter!</div>
+        <div className="text-center w-full h-[50vh] flex items-center justify-center text-gray-500">
+          No Results found! Change the Filter!
+        </div>
       ) : (
         <div className="overflow-x-auto w-full">
           <table className="table table-sm table-zebra border w-full">
             <thead>
               <tr>
                 <th>Invoice ID:</th>
-                <th>Order IDs</th>
+                {/* <th>Order IDs</th> */}
                 <th>Tokens</th>
                 <th>Date</th>
-                <th>Subtotal</th>
-                <th>Tax</th>
+                {/* <th>Subtotal</th> */}
+                {/* <th>Tax</th> */}
                 <th>Total</th>
-                <th>Delivery Type</th>
+                {/* <th>Delivery Type</th> */}
                 <th>Customer</th>
-                <th>Table</th>
+                {/* <th>Table</th> */}
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {invoices.map((invoice, index)=>{
-                const { 
+              {invoices.map((invoice, index) => {
+                const {
                   invoice_id,
                   created_at,
                   sub_total,
@@ -405,31 +477,54 @@ export default function InvoicesPage() {
                   orders,
                 } = invoice;
 
-                const orderIdsArr = orders.map(o=>o.order_id);
-                const orderIds = orderIdsArr.join(", ")
+                const orderIdsArr = orders.map((o) => o.order_id);
+                const orderIds = orderIdsArr.join(", ");
                 const tokens = orderIdsArr.join(", ");
 
-                return <tr key={index}>
-                  <td>{invoice_id}</td>
-                  <td>{orderIds}</td>
-                  <td>{tokens}</td>
-                  <td>{new Intl.DateTimeFormat('en', {dateStyle: "medium", timeStyle: "short"}).format(new Date(created_at))}</td>
-                  <td>{state.currency}{sub_total}</td>
-                  <td>{state.currency}{tax_total}</td>
-                  <td className="font-bold">{state.currency}{total}</td>
-                  <td>{delivery_type?delivery_type:"N/A"}</td>
-                  <td>{customer_id ?<b>{name}-({customer_id})</b>:"WALKIN"}</td>
-                  <td>{table_id ? <b>{table_title}-{floor}</b>:"N/A"}</td>
-                  
-                  <td className="flex items-center gap-2">
-                    <button onClick={()=>{btnViewReceipt(orderIdsArr)}} className="btn btn-sm btn-circle text-slate-500">
+                return (
+                  <tr key={index}>
+                    <td>{invoice_id}</td>
+                    {/* <td>{orderIds}</td> */}
+                    <td>{tokens}</td>
+                    <td>
+                      {new Intl.DateTimeFormat("en", {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                      }).format(new Date(created_at))}
+                    </td>
+                    {/* <td>{state.currency}{sub_total}</td> */}
+                    {/* <td>{state.currency}{tax_total}</td> */}
+                    <td className="font-bold">
+                      {state.currency}
+                      {total}
+                    </td>
+                    {/* <td>{delivery_type?delivery_type:"N/A"}</td> */}
+                    <td>
+                      {customer_id ? (
+                        <b>
+                          {name}-({customer_id})
+                        </b>
+                      ) : (
+                        "WALKIN"
+                      )}
+                    </td>
+                    {/* <td>{table_id ? <b>{table_title}-{floor}</b>:"N/A"}</td> */}
+
+                    <td className="flex items-center gap-2">
+                      {/* <button onClick={()=>{btnViewReceipt(orderIdsArr)}} className="btn btn-sm btn-circle text-slate-500">
                       <IconReceipt stroke={iconStroke} />
-                    </button>
-                    <button onClick={()=>{btnPrintReceipt(orderIdsArr)}} className="btn btn-sm btn-circle text-slate-500">
-                      <IconPrinter stroke={iconStroke} />
-                    </button>
-                  </td>
-                </tr>
+                    </button> */}
+                      <button
+                        onClick={() => {
+                          btnPrintReceipt(orderIdsArr);
+                        }}
+                        className="btn btn-sm btn-circle text-slate-500"
+                      >
+                        <IconPrinter stroke={iconStroke} />
+                      </button>
+                    </td>
+                  </tr>
+                );
               })}
             </tbody>
           </table>
@@ -495,19 +590,24 @@ export default function InvoicesPage() {
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
               <button className="btn">Close</button>
-              <button onClick={()=>{
-                setState({
-                  ...state,
-                  filter: filterTypeRef.current.value,
-                  fromDate: fromDateRef.current.value || null,
-                  toDate: toDateRef.current.value || null,
-                });
-              }} className="btn ml-2">Apply</button>
+              <button
+                onClick={() => {
+                  setState({
+                    ...state,
+                    filter: filterTypeRef.current.value,
+                    fromDate: fromDateRef.current.value || null,
+                    toDate: toDateRef.current.value || null,
+                  });
+                }}
+                className="btn ml-2"
+              >
+                Apply
+              </button>
             </form>
           </div>
         </div>
       </dialog>
       {/* filter dialog */}
     </Page>
-  )
+  );
 }

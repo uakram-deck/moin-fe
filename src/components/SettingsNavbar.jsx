@@ -21,11 +21,11 @@ export default function SettingsNavbar() {
       text: "Details",
       path: "/dashboard/settings",
     },
-    // {
-    //   icon: <IconPrinter stroke={iconStroke} />,
-    //   text: "Print Settings",
-    //   path: "/dashboard/settings/print-settings",
-    // },
+    {
+      icon: <IconPrinter stroke={iconStroke} />,
+      text: "Print Settings",
+      path: "/dashboard/settings/print-settings",
+    },
     {
       icon: <IconArmchair2 stroke={iconStroke} />,
       text: "Tables",
@@ -36,26 +36,26 @@ export default function SettingsNavbar() {
       text: "Menu Items",
       path: "/dashboard/settings/menu-items",
     },
-    // {
-    //   icon: <IconReceiptTax stroke={iconStroke} />,
-    //   text: "Tax Setup",
-    //   path: "/dashboard/settings/tax-setup",
-    // },
+    {
+      icon: <IconReceiptTax stroke={iconStroke} />,
+      text: "Tax Setup",
+      path: "/dashboard/settings/tax-setup",
+    },
     {
       icon: <IconCreditCard stroke={iconStroke} />,
       text: "Payment Types",
       path: "/dashboard/settings/payment-types",
     },
-    // {
-    //   icon: <IconDevices stroke={iconStroke} />,
-    //   text: "Devices",
-    //   path: "/dashboard/settings/devices",
-    // },
-    // {
-    //   icon: <IconLifebuoy stroke={iconStroke} />,
-    //   text: "Contact Support",
-    //   path: "/dashboard/settings/contact-support",
-    // },
+    {
+      icon: <IconDevices stroke={iconStroke} />,
+      text: "Devices",
+      path: "/dashboard/settings/devices",
+    },
+    {
+      icon: <IconLifebuoy stroke={iconStroke} />,
+      text: "Contact Support",
+      path: "/dashboard/settings/contact-support",
+    },
   ];
 
   return (

@@ -30,7 +30,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { signOut } from "../controllers/auth.controller";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import { getUserDetailsInLocalStorage } from "../helpers/UserDetails";
+import { clearUserDetailsInLocalStorage, getUserDetailsInLocalStorage } from "../helpers/UserDetails";
 import { SCOPES } from "../config/scopes";
 
 export default function AppBar() {
@@ -54,22 +54,23 @@ export default function AppBar() {
   const userScopes = scope?.split(",");
 
   const btnLogout = async () => {
-    try {
-      toast.loading("Please wait...");
-      const response = await signOut();
-      if (response.status == 200) {
-        toast.dismiss();
-        // toast.success(response.data.message);
-        toast.success("Logout Successful.");
-        navigate("/", { replace: true });
-      }
-    } catch (error) {
-      const message =
-        error?.response?.data?.message || "Something went wrong! Try later!";
-      console.error(error);
-      toast.dismiss();
-      toast.error(message);
-    }
+    toast.success("Logout Successful.");
+    navigate("/", { replace: true });
+    clearUserDetailsInLocalStorage();
+    // try {
+    //   toast.loading("Please wait...");
+    //   const response = await signOut();
+    //   if (response.status == 200) {
+    //     toast.dismiss();
+    //     // toast.success(response.data.message);
+    //   }
+    // } catch (error) {
+    //   const message =
+    //     error?.response?.data?.message || "Something went wrong! Try later!";
+    //   console.error(error);
+    //   toast.dismiss();
+    //   toast.error(message);
+    // }
   };
 
   const btnShowSearchModal = () => {
